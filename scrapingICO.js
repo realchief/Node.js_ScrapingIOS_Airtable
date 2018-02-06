@@ -18,26 +18,95 @@ const puppeteer = require('puppeteer');
   for (link in links) {
     await page.goto(links[link]);
 
+    // Get all urls
+    url = links[link];
+
     // Get all coin names.
-    const coinnameSelector = '.white-desk.ico-desk .ico-main-info h3';
-    await page.waitForSelector(coinnameSelector);
+    // const coinnameSelector = '.white-desk.ico-desk .ico-main-info h3';
+    // await page.waitForSelector(coinnameSelector);
 
     const coinname = await page.evaluate(
         () => document.querySelector('.white-desk.ico-desk .ico-main-info h3').innerText
     );
 
     // Get all Maket Verticals
-    const mvSelector = '.white-desk.ico-desk .ico-main-info .ico-category-name';
-    await page.waitForSelector(mvSelector);
-
+  
     const marketvertical = await page.evaluate(
-        () => document.querySelector('.white-desk.ico-desk .ico-main-info .ico-category-name').childNodes[0].nodeValue
+        () => document.querySelector('.white-desk.ico-desk .ico-main-info .ico-category-name').childNodes[0].nodeValue.slice(1,-1)
     );
+
+    // Get all descriptions
+    
+    const description = await page.evaluate(
+        () => document.querySelector('.white-desk.ico-desk .ico-main-info .ico-category-name').childNodes[1].innerText
+    );
+
+    // Get all icons
+
+    const icon = await page.evaluate(
+        () => document.querySelector('.white-desk.ico-desk .ico-row .ico-icon img').src
+    );
+
+    // Get all start dates of Token Sale    
+    
+    const presale_start_date = await page.evaluate(
+        () => {
+            if (document.querySelector('.row.list .col-12.title-h4 h4'))
+                if (document.querySelector('.row.list .col-12.title-h4 h4').innerText.split(':')[1])
+                    return document.querySelector('.row.list .col-12.title-h4 h4').innerText.split(':')[1].split('–')[0]
+                else  return ' ' 
+            else return ' '
+        }
+
+    );
+
+    const presale_end_date = await page.evaluate(
+        () => {
+            if (document.querySelector('.row.list .col-12.title-h4 h4'))
+                if (document.querySelector('.row.list .col-12.title-h4 h4').innerText.split(':')[1])
+                    return document.querySelector('.row.list .col-12.title-h4 h4').innerText.split(':')[1].split('–')[1]
+                else  return ' ' 
+            else return ' '
+        }
+
+    );
+
+    // Get all countries
+
+    const presale_country = await page.evaluate(
+        () => {
+            if (document.querySelector('.col-12.info-analysis-list'))
+                if (document.querySelector('.col-12.info-analysis-list').childNodes)
+                    if (document.querySelector('.col-12.info-analysis-list').childNodes[3])
+                        if (document.querySelector('.col-12.info-analysis-list').childNodes[3].innerText.includes('Team from'))
+                            return document.querySelector('.col-12.info-analysis-list').childNodes[3].innerText.split(':')[1]
+                        else return ' '
+                    else return ' '
+                else  return ' ' 
+            else return ' '
+        }
+    );
+
+
+
+    console.log(symbol);
+    console.log(presale_end_date);
+
+    // if (document.querySelector('.col-12.info-analysis-list').childNodes[3].innerText.includes('Team from')) {
+    //     const countrySelector = '.col-12.info-analysis-list';
+    //     await page.waitForSelector(presalestartSelector);
+    //     const country = await page.evaluate(
+    //         () => document.querySelector('.col-12.info-analysis-list').childNodes[3].innerText
+    //     );       
+        
+ 
+
+   
 
     // return {
     //     'title': ti
     // }
-    console.log(marketvertical)
+    
   }
   
 //   Extract the detailed titles of active-ico category
