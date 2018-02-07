@@ -3,8 +3,21 @@ const puppeteer = require('puppeteer');
 (async () => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
+    const domain_url = 'https://icodrops.com/'
+    let result = {};    
+    let category_names = ['active-ico', 'active-ico', 'ended-ico']
+    let category_urls = [];
+    category_names.forEach(function (category_name, i) {
+        category_url = domain_url + 'category/' + category_name
+        console.log('%d: %s', i, category_name);
+        console.log('%d: %s', i, category_url);
+    });
+
     await page.goto('https://icodrops.com/category/active-ico/');
 
+    // result['Active Ico'] = []
+
+    
     // Extract the product urls of active-ico category
     const allResultsSelector = '.tabs__content.active .category-desk.justify-content-center .a_ico a#n_color[href]';
     await page.waitForSelector(allResultsSelector);
@@ -16,6 +29,9 @@ const puppeteer = require('puppeteer');
     console.log(links)
 
     for (link in links) {
+        item = {};
+        item['project'] = 'copytrack';
+    
         await page.goto(links[link]);
 
         // Get all urls
@@ -167,17 +183,28 @@ const puppeteer = require('puppeteer');
             }
         );
 
-
-
-
+        // Twitter 
+        const twitter = await page.evaluate(
+            () => {
+                if (document.querySelector('.twitter a').href)
+                    return document.querySelector('.twitter a').href
+                else return ' '
+            }
+        );
         
+        // telegram 
+        const telegram = await page.evaluate(
+            () => {
+                if (document.querySelector('.telega a').href)
+                    return document.querySelector('.telega a').href
+                else return ' '
+            }
+        );
        
-        console.log(tokenprice);    
+        // console.log(telegram);    
 
-        // return {
-        //     'title': ti
-        // }
-        
+     
+        // result['active ico'].push(item);
     } 
   await browser.close();
 })();
