@@ -1,4 +1,6 @@
 const puppeteer = require('puppeteer');
+var Airtable = require('airtable');
+var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('app5PCFrzosRjP2OY');
 
 (async () => {
     try {
@@ -52,8 +54,8 @@ const puppeteer = require('puppeteer');
                         if (document.querySelector('.row.list .col-12.title-h4 h4'))
                             if (document.querySelector('.row.list .col-12.title-h4 h4').innerText.split(':')[1])
                                 return document.querySelector('.row.list .col-12.title-h4 h4').innerText.split(':')[1].split('–')[0]
-                            else  return ' ' 
-                        else return ' '
+                            else  return 'AAA' 
+                        else return 'AAA'
                     }
         
                 );
@@ -194,6 +196,34 @@ const puppeteer = require('puppeteer');
                 item['tokenprice'] = tokenprice;
                 item['twitter'] = twitter;
                 item['telegram'] = telegram;
+                item['blockchain_technology'] = " ";
+
+                base('ICOs').create({
+                    "Coin Name": item['coinname'],
+                    "Icon": [
+                        {
+                            "url": item['icon']
+                        }
+                    ],
+                    "URL": item['url'],
+                    "Presale Start Date": item['presale_start_date'],
+                    "Presale End Date": item['presale_end_date'],
+                    "Source URLS": " ",
+                    "Twitter": item['twitter'],
+                    "Facebook Link": " ",
+                    "Symbol": item['symbol'],
+                    "Description": item['description'],
+                    "White Paper LInk": " ",                 
+                    "Market Vertical": item['marketvertical'],
+                    "Telegram": item['telegram'],
+                    "Blockchain Technology": item['blockchain_technology'],                    
+                    "Country": item['country']
+                    }, function(err, record) {
+                        if (err) { 
+                            console.error(err); return; 
+                        }
+                        console.log(record.getId());
+                    });
 
                 console.log(item['url'])
 
@@ -206,3 +236,38 @@ const puppeteer = require('puppeteer');
         console.error(err);
     }
 })();
+
+// for(i = 0; i<3; i++){
+//     base('ICOs').create({
+//         "Coin Name": result[i]['coinname'],
+//         "Icon": [
+//             {
+//                 "url": result[i]['icon']
+//             }
+//         ],
+//         "URL": result[i]['url'],
+//         "Presale Start Date": result[i]['presale_start_date'],
+//         "Presale End Date": result[i]['presale_end_date'],
+//         "Source URLS": " ",
+//         "Twitter": result[i]['twitter'],
+//         "Facebook Link": " ",
+//         "Symbol": result[i]['symbol'],
+//         "Description": result[i]['description'],
+//         "White Paper LInk": " ",
+//         "Target Raise": result[i]['target_raise'],
+//         "Market Vertical": result[i]['target_raise'],
+//         "Telegram": result[i]['telegram'],
+//         "Blockchain Technology": result[i]['blockchain_technology'],
+//         "Telegram Membership Count": result[i]['tm_count'],
+//         "Country": result[i]['country']
+//         }, function(err, record) {
+//             if (err) { 
+//                 console.error(err); return; 
+//             }
+//             console.log(record.getId());
+//         });
+// }
+
+
+
+
