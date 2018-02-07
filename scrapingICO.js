@@ -116,14 +116,10 @@ var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('app5PCFrzosRjP2OY')
                                 if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[9])
                                     if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[9].innerText.includes('Sold on pre-sale'))
                                         return document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[9].innerText.split(':')[1]
-                                    else return ' '
-                                else return ' '
-                            else  return ' ' 
-                        else return ' '
                     }
                 );
         
-                // Telegram Membership Count
+                // Team Members
                 const tm_count = await page.evaluate(
                     () => {
                         if (document.querySelector('.white-desk.ico-desk .row.list .col-12.info-analysis-list'))
@@ -135,18 +131,16 @@ var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('app5PCFrzosRjP2OY')
                 );
         
         
-                // Token Price
-                const tokenprice = await page.evaluate(
+                // Token Price ETH
+                const tokenpriceETH = await page.evaluate(
                     () => {
                         if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6'))
                             if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes)
                                 if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[5])
-                                    if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[5].innerText.includes('Token Price'))
-                                        return document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[5].innerText.split(':')[1]
-                                    else return ' '
-                                else return ' '
-                            else  return ' ' 
-                        else return ' '
+                                    if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[5].innerText.includes('ICO Token Price'))
+                                        if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[5].innerText.includes('ETH'))
+                                            if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[5].innerText.split(':')[1].split('('))
+                                                return parseFloat(document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[5].innerText.split(':')[1].split('(')[1].split(" ")[0])
                     }
                 );
         
@@ -168,61 +162,47 @@ var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('app5PCFrzosRjP2OY')
                     }
                 );
 
-                let item = {};
-                item['url'] = url;
-                item['coinname'] = coinname;
-                item['marketvertical'] = marketvertical;
-                item['description'] = description;
-                item['icon'] = icon;
-                item['presale_start_date'] = presale_start_date;
-                item['presale_end_date'] = presale_end_date;
-                item['country'] = country;
-                item['symbol'] = symbol;
-                item['target_raise'] = target_raise;
-                item['capital_raised'] = capital_raised;
-                item['tm_count'] = tm_count;
-                item['tokenprice'] = tokenprice;
-                item['twitter'] = twitter;
-                item['telegram'] = telegram;
-                item['blockchain_technology'] = " ";
+                console.log("--------")
+                console.log(url)                
+                console.log(tokenpriceETH)                
+                console.log(typeof(tokenpriceETH))
+                console.log("--------")
 
                 base('ICOs').create({
-                    "Coin Name": item['coinname'],
+                    "Coin Name": coinname,
                     "Icon": [
                         {
-                            "url": item['icon']
+                            "url": icon
                         }
                     ],
-                    "URL": item['url'],
-                    "Presale Start Date": item['presale_start_date'],
-                    "Presale End Date": item['presale_end_date'],
+                    "URL": url,
+                    // "Capital Raised": capital_raised,                    
+                    "Presale Start Date": presale_start_date,
+                    "Presale End Date": presale_end_date,
                     "Source URLS": " ",
-                    "Twitter": item['twitter'],
+                    "Token Price ETH": tokenpriceETH,
+                    "Twitter": twitter,
                     "Facebook Link": " ",
-                    "Symbol": item['symbol'],
-                    "Description": item['description'],
+                    "Symbol": symbol,
+                    "Description": description,
                     "White Paper LInk": " ",
-                    "Target Raise": item['target_raise'],
-                    "Market Vertical": item['marketvertical'],
-                    "Telegram": item['telegram'],
-                    "Blockchain Technology": item['blockchain_technology'],
-                    "Telegram Membership Count": item['tm_count'],
-                    "Country": item['country']
+                    "Target Raise": target_raise,
+                    "Market Vertical": marketvertical,
+                    "Telegram": telegram,
+                    "Blockchain Technology": " ",
+                    "Team Members": tm_count,
+                    "Country": country
                     }, function(err, record) {
                         if (err) { 
                             console.error(err); return; 
                         }
                         console.log(record.getId());
-                    });
-
-                console.log(item['url'])
-
-                // console.log(telegram);   
-                result[i].push(item);
+                    });                
             }
         }    
         await browser.close();
     } catch(err) {
+        console.log(url)
         console.error(err);
     }
 })();
