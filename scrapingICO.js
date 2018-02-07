@@ -54,8 +54,6 @@ var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('app5PCFrzosRjP2OY')
                         if (document.querySelector('.row.list .col-12.title-h4 h4'))
                             if (document.querySelector('.row.list .col-12.title-h4 h4').innerText.split(':')[1])
                                 return document.querySelector('.row.list .col-12.title-h4 h4').innerText.split(':')[1].split('–')[0]
-                            else  return 'AAA' 
-                        else return 'AAA'
                     }
         
                 );
@@ -65,8 +63,6 @@ var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('app5PCFrzosRjP2OY')
                         if (document.querySelector('.row.list .col-12.title-h4 h4'))
                             if (document.querySelector('.row.list .col-12.title-h4 h4').innerText.split(':')[1])
                                 return document.querySelector('.row.list .col-12.title-h4 h4').innerText.split(':')[1].split('–')[1]
-                            else  return ' ' 
-                        else return ' '
                     }
         
                 );
@@ -108,11 +104,7 @@ var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('app5PCFrzosRjP2OY')
                             if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes)
                                 if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[7])
                                     if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[7].innerText.includes('Fundraising Goal'))
-                                        return document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[7].innerText.split(':')[1]
-                                    else return ' '
-                                else return ' '
-                            else  return ' ' 
-                        else return ' '
+                                        return parseFloat(document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[7].innerText.split(':')[1])
                     }
                 );
         
@@ -138,11 +130,7 @@ var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('app5PCFrzosRjP2OY')
                             if (document.querySelector('.white-desk.ico-desk .row.list .col-12.info-analysis-list').childNodes)
                                 if (document.querySelector('.white-desk.ico-desk .row.list .col-12.info-analysis-list').childNodes[1])
                                     if (document.querySelector('.white-desk.ico-desk .row.list .col-12.info-analysis-list').childNodes[1].innerText.includes('Number of Team Members'))
-                                        return document.querySelector('.white-desk.ico-desk .row.list .col-12.info-analysis-list').childNodes[1].innerText.split(':')[1]
-                                    else return ' '
-                                else return ' '
-                            else  return ' ' 
-                        else return ' '
+                                        return parseFloat(document.querySelector('.white-desk.ico-desk .row.list .col-12.info-analysis-list').childNodes[1].innerText.split(':')[1])
                     }
                 );
         
@@ -213,10 +201,12 @@ var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('app5PCFrzosRjP2OY')
                     "Facebook Link": " ",
                     "Symbol": item['symbol'],
                     "Description": item['description'],
-                    "White Paper LInk": " ",                 
+                    "White Paper LInk": " ",
+                    "Target Raise": item['target_raise'],
                     "Market Vertical": item['marketvertical'],
                     "Telegram": item['telegram'],
-                    "Blockchain Technology": item['blockchain_technology'],                    
+                    "Blockchain Technology": item['blockchain_technology'],
+                    "Telegram Membership Count": item['tm_count'],
                     "Country": item['country']
                     }, function(err, record) {
                         if (err) { 
@@ -237,36 +227,6 @@ var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('app5PCFrzosRjP2OY')
     }
 })();
 
-// for(i = 0; i<3; i++){
-//     base('ICOs').create({
-//         "Coin Name": result[i]['coinname'],
-//         "Icon": [
-//             {
-//                 "url": result[i]['icon']
-//             }
-//         ],
-//         "URL": result[i]['url'],
-//         "Presale Start Date": result[i]['presale_start_date'],
-//         "Presale End Date": result[i]['presale_end_date'],
-//         "Source URLS": " ",
-//         "Twitter": result[i]['twitter'],
-//         "Facebook Link": " ",
-//         "Symbol": result[i]['symbol'],
-//         "Description": result[i]['description'],
-//         "White Paper LInk": " ",
-//         "Target Raise": result[i]['target_raise'],
-//         "Market Vertical": result[i]['target_raise'],
-//         "Telegram": result[i]['telegram'],
-//         "Blockchain Technology": result[i]['blockchain_technology'],
-//         "Telegram Membership Count": result[i]['tm_count'],
-//         "Country": result[i]['country']
-//         }, function(err, record) {
-//             if (err) { 
-//                 console.error(err); return; 
-//             }
-//             console.log(record.getId());
-//         });
-// }
 
 
 
