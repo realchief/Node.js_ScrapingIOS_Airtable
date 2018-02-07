@@ -114,8 +114,8 @@ var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('app5PCFrzosRjP2OY')
                         if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6'))
                             if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes)
                                 if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[9])
-                                    if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[9].innerText.includes('Sold on pre-sale'))
-                                        return document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[9].innerText.split(':')[1]
+                                    if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[9].innerText.includes('Total Tokens'))
+                                        return parseFloat(document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[9].innerText.split(':')[1])
                     }
                 );
         
@@ -126,7 +126,7 @@ var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('app5PCFrzosRjP2OY')
                             if (document.querySelector('.white-desk.ico-desk .row.list .col-12.info-analysis-list').childNodes)
                                 if (document.querySelector('.white-desk.ico-desk .row.list .col-12.info-analysis-list').childNodes[1])
                                     if (document.querySelector('.white-desk.ico-desk .row.list .col-12.info-analysis-list').childNodes[1].innerText.includes('Number of Team Members'))
-                                        return parseFloat(document.querySelector('.white-desk.ico-desk .row.list .col-12.info-analysis-list').childNodes[1].innerText.split(':')[1])
+                                        return document.querySelector('.white-desk.ico-desk .row.list .col-12.info-analysis-list').childNodes[1].innerText.split(':')[1]
                     }
                 );
         
@@ -164,8 +164,8 @@ var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('app5PCFrzosRjP2OY')
 
                 console.log("--------")
                 console.log(url)                
-                console.log(tokenpriceETH)                
-                console.log(typeof(tokenpriceETH))
+                console.log(capital_raised)                
+                console.log(typeof(capital_raised))
                 console.log("--------")
 
                 base('ICOs').create({
@@ -176,7 +176,7 @@ var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('app5PCFrzosRjP2OY')
                         }
                     ],
                     "URL": url,
-                    // "Capital Raised": capital_raised,                    
+                    "Capital Raised": capital_raised,                    
                     "Presale Start Date": presale_start_date,
                     "Presale End Date": presale_end_date,
                     "Source URLS": " ",
