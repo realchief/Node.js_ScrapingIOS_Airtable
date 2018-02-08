@@ -1,6 +1,6 @@
 # Scraping data from ICODrops.com and storing in Airtable
 
-## Getting Started
+1. Getting Started
 
 -Node.js installation(>v6.4.0)
 
@@ -20,7 +20,7 @@ npm install puppeteer
 ```
 npm install airtable
 
-## Running scraper
+2. Running scraper
 
 To run this scraper:
 ```
