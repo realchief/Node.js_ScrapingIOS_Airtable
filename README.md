@@ -12,15 +12,15 @@ sudo apt-get install nodejs
 
 sudo apt-get install build-essential
 ```
--airtable puppetter
+-install puppetter 
 ```
 npm install puppeteer
 ```
--airtable installation
+-install airtable
 ```
 npm install airtable
 ```
--generate airtable key and configuration
+## Generate key in airtable and configuration in code
 
 ## Running scraper
 

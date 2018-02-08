@@ -1,6 +1,5 @@
 const puppeteer = require('puppeteer');
 var Airtable = require('airtable');
-// var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('app5PCFrzosRjP2OY');
 var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('appzTfyn5SZHuWzqL');
 
 (async () => {
