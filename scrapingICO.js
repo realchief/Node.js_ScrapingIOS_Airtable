@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer');
 var Airtable = require('airtable');
-var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('app5PCFrzosRjP2OY');
+// var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('app5PCFrzosRjP2OY');
+var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('appzTfyn5SZHuWzqL');
 
 (async () => {
     try {
@@ -163,9 +164,8 @@ var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('app5PCFrzosRjP2OY')
                 );
 
                 console.log("--------")
-                console.log(url)                
-                console.log(capital_raised)                
-                console.log(typeof(capital_raised))
+                console.log(url)   
+                console.log(coinname)             
                 console.log("--------")
 
                 base('ICOs').create({
