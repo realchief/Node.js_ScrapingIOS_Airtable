@@ -20,7 +20,7 @@ npm install puppeteer
 ```
 npm install airtable
 ```
-## Generate key in airtable and configuration in code
+-Generate key in airtable.com and configuration
 
 ## Running scraper
 
