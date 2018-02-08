@@ -49,24 +49,27 @@ var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('app5PCFrzosRjP2OY')
                     () => document.querySelector('.white-desk.ico-desk .ico-row .ico-icon img').src
                 );
         
-                // Get all start dates of Token Sale    
+                // Get all start dates of Token Sale
                 const presale_start_date = await page.evaluate(
                     () => {
-                        if (document.querySelector('.row.list .col-12.title-h4 h4'))
-                            if (document.querySelector('.row.list .col-12.title-h4 h4').innerText.split(':')[1])
-                                return document.querySelector('.row.list .col-12.title-h4 h4').innerText.split(':')[1].split('–')[0]
+                        try {
+                            return document.querySelector('.row.list .col-12.title-h4 h4').innerText.split(':')[1].split('–')[0]
+                        } catch (e) {
+                            return ' '
+                        }
                     }
-        
-                );
-        
+                );     
+
+                // Get all end dates of Token Sale
                 const presale_end_date = await page.evaluate(
                     () => {
-                        if (document.querySelector('.row.list .col-12.title-h4 h4'))
-                            if (document.querySelector('.row.list .col-12.title-h4 h4').innerText.split(':')[1])
-                                return document.querySelector('.row.list .col-12.title-h4 h4').innerText.split(':')[1].split('–')[1]
+                        try {
+                            return document.querySelector('.row.list .col-12.title-h4 h4').innerText.split(':')[1].split('–')[1]
+                        } catch (e) {
+                            return ' '
+                        }
                     }
-        
-                );
+                );        
         
                 // Get all countries
                 const country = await page.evaluate(
@@ -76,13 +79,12 @@ var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('app5PCFrzosRjP2OY')
                                 return document.querySelector('.col-12.info-analysis-list').childNodes[3].innerText.split(':')[1]
                             }
                         } catch (e) {
-                           return ' '
+                            return ' '
                         }
                     }
                 );
 
                 // Get all symbols
-
                 const symbol = await page.evaluate(
                     () => {
                         try {
@@ -90,13 +92,12 @@ var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('app5PCFrzosRjP2OY')
                                 return document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[1].innerText.split(':')[1]
                             }
                         } catch (e) {
-                           return ' '
+                            return ' '
                         }
                     }
                 );
         
                 // Get all Target Raise
-
                 const target_raise = await page.evaluate(
                     () => {
                         try {
@@ -104,7 +105,7 @@ var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('app5PCFrzosRjP2OY')
                                 return parseFloat(document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[7].innerText.split(':')[1])
                             }
                         } catch (e) {
-                           return ' '
+                            return ' '
                         }
                     }
                 );
@@ -118,7 +119,7 @@ var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('app5PCFrzosRjP2OY')
                                 return parseFloat(document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[9].innerText.split(':')[1])
                             }
                         } catch (e) {
-                           return ' '
+                            return ' '
                         }
                     }
                 );
@@ -132,7 +133,7 @@ var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('app5PCFrzosRjP2OY')
                                 return document.querySelector('.white-desk.ico-desk .row.list .col-12.info-analysis-list').childNodes[1].innerText.split(':')[1]
                             }
                         } catch (e) {
-                           return ' '
+                            return ' '
                         }
                     }
                 );
@@ -145,7 +146,7 @@ var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('app5PCFrzosRjP2OY')
                                 return parseFloat(document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[5].innerText.split(':')[1].split('(')[1].split(" ")[0])
                             }
                         } catch (e) {
-                           return ' '
+                            return ' '
                         }
                     }
                 );
