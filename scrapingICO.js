@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 var Airtable = require('airtable');
-var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('app5PCFrzosRjP2OY');
-// var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('appzTfyn5SZHuWzqL');
+// var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('app5PCFrzosRjP2OY');
+var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('appzTfyn5SZHuWzqL');
 
 (async () => {
     try {
@@ -14,7 +14,7 @@ var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('app5PCFrzosRjP2OY')
             category_url = domain_url + 'category/' + category_names[i];       
             await page.goto(category_url);
             result[i] = []
-            //  Extract the product urls of active-ico category
+            
             const allResultsSelector = '.tabs__content.active .category-desk.justify-content-center .a_ico a#n_color[href]';
             await page.waitForSelector(allResultsSelector);
 
@@ -55,7 +55,7 @@ var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('app5PCFrzosRjP2OY')
                         try {
                             return document.querySelector('.row.list .col-12.title-h4 h4').innerText.split(':')[1].split('–')[0]
                         } catch (e) {
-                            return ' '
+                            return 
                         }
                     }
                 );     
@@ -66,7 +66,7 @@ var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('app5PCFrzosRjP2OY')
                         try {
                             return document.querySelector('.row.list .col-12.title-h4 h4').innerText.split(':')[1].split('–')[1]
                         } catch (e) {
-                            return ' '
+                            return 
                         }
                     }
                 );        
@@ -105,13 +105,12 @@ var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('app5PCFrzosRjP2OY')
                                 return parseFloat(document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[7].innerText.split(':')[1])
                             }
                         } catch (e) {
-                            return ' '
+                            return 
                         }
                     }
                 );
        
                 // Get all Capital Raised
-
                 const capital_raised = await page.evaluate(
                     () => {
                         try {
@@ -119,13 +118,12 @@ var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('app5PCFrzosRjP2OY')
                                 return parseFloat(document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[9].innerText.split(':')[1])
                             }
                         } catch (e) {
-                            return ' '
+                            return 
                         }
                     }
                 );
         
                 // Team Members
-
                 const tm_count = await page.evaluate(
                     () => {
                         try {
@@ -146,7 +144,7 @@ var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('app5PCFrzosRjP2OY')
                                 return parseFloat(document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[5].innerText.split(':')[1].split('(')[1].split(" ")[0])
                             }
                         } catch (e) {
-                            return ' '
+                            return 
                         }
                     }
                 );
