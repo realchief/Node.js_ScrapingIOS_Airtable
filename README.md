@@ -2,7 +2,7 @@
 
 ## Getting Started
 
--Node.js installation(>v6.4.0)
+-Node.js installation(>v7.6.0)
 
 Caution: Puppeteer requires at least Node v6.4.0, but the examples below use async/await which is only supported in Node v7.6.0 or greater.
 ```
