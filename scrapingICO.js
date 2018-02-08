@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer');
 var Airtable = require('airtable');
-var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('appzTfyn5SZHuWzqL');
+var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('app5PCFrzosRjP2OY');
+// var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('appzTfyn5SZHuWzqL');
 
 (async () => {
     try {
@@ -70,77 +71,82 @@ var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('appzTfyn5SZHuWzqL')
                 // Get all countries
                 const country = await page.evaluate(
                     () => {
-                        if (document.querySelector('.col-12.info-analysis-list'))
-                            if (document.querySelector('.col-12.info-analysis-list').childNodes)
-                                if (document.querySelector('.col-12.info-analysis-list').childNodes[3])
-                                    if (document.querySelector('.col-12.info-analysis-list').childNodes[3].innerText.includes('Team from'))
-                                        return document.querySelector('.col-12.info-analysis-list').childNodes[3].innerText.split(':')[1]
-                                    else return ' '
-                                else return ' '
-                            else  return ' ' 
-                        else return ' '
+                        try {
+                            if (document.querySelector('.col-12.info-analysis-list').childNodes[3].innerText.includes('Team from')) {
+                                return document.querySelector('.col-12.info-analysis-list').childNodes[3].innerText.split(':')[1]
+                            }
+                        } catch (e) {
+                           return ' '
+                        }
                     }
                 );
-        
+
                 // Get all symbols
+
                 const symbol = await page.evaluate(
                     () => {
-                        if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6'))
-                            if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes)
-                                if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[1])
-                                    if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[1].innerText.includes('Ticker'))
-                                        return document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[1].innerText.split(':')[1]
-                                    else return ' '
-                                else return ' '
-                            else  return ' ' 
-                        else return ' '
+                        try {
+                            if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[1].innerText.includes('Ticker')) {
+                                return document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[1].innerText.split(':')[1]
+                            }
+                        } catch (e) {
+                           return ' '
+                        }
                     }
                 );
         
                 // Get all Target Raise
+
                 const target_raise = await page.evaluate(
                     () => {
-                        if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6'))
-                            if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes)
-                                if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[7])
-                                    if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[7].innerText.includes('Fundraising Goal'))
-                                        return parseFloat(document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[7].innerText.split(':')[1])
+                        try {
+                            if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[7].innerText.includes('Fundraising Goal')) {
+                                return parseFloat(document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[7].innerText.split(':')[1])
+                            }
+                        } catch (e) {
+                           return ' '
+                        }
                     }
                 );
-        
+       
                 // Get all Capital Raised
+
                 const capital_raised = await page.evaluate(
                     () => {
-                        if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6'))
-                            if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes)
-                                if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[9])
-                                    if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[9].innerText.includes('Total Tokens'))
-                                        return parseFloat(document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[9].innerText.split(':')[1])
+                        try {
+                            if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[9].innerText.includes('Total Tokens')) {
+                                return parseFloat(document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[9].innerText.split(':')[1])
+                            }
+                        } catch (e) {
+                           return ' '
+                        }
                     }
                 );
         
                 // Team Members
+
                 const tm_count = await page.evaluate(
                     () => {
-                        if (document.querySelector('.white-desk.ico-desk .row.list .col-12.info-analysis-list'))
-                            if (document.querySelector('.white-desk.ico-desk .row.list .col-12.info-analysis-list').childNodes)
-                                if (document.querySelector('.white-desk.ico-desk .row.list .col-12.info-analysis-list').childNodes[1])
-                                    if (document.querySelector('.white-desk.ico-desk .row.list .col-12.info-analysis-list').childNodes[1].innerText.includes('Number of Team Members'))
-                                        return document.querySelector('.white-desk.ico-desk .row.list .col-12.info-analysis-list').childNodes[1].innerText.split(':')[1]
+                        try {
+                            if (document.querySelector('.white-desk.ico-desk .row.list .col-12.info-analysis-list').childNodes[1].innerText.includes('Number of Team Members')) {
+                                return document.querySelector('.white-desk.ico-desk .row.list .col-12.info-analysis-list').childNodes[1].innerText.split(':')[1]
+                            }
+                        } catch (e) {
+                           return ' '
+                        }
                     }
                 );
-        
         
                 // Token Price ETH
                 const tokenpriceETH = await page.evaluate(
                     () => {
-                        if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6'))
-                            if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes)
-                                if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[5])
-                                    if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[5].innerText.includes('ICO Token Price'))
-                                        if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[5].innerText.includes('ETH'))
-                                            if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[5].innerText.split(':')[1].split('('))
-                                                return parseFloat(document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[5].innerText.split(':')[1].split('(')[1].split(" ")[0])
+                        try {
+                            if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[5].innerText.includes('ICO Token Price')) {
+                                return parseFloat(document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[5].innerText.split(':')[1].split('(')[1].split(" ")[0])
+                            }
+                        } catch (e) {
+                           return ' '
+                        }
                     }
                 );
         
