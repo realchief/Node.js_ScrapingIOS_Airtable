@@ -12,16 +12,17 @@ sudo apt-get install nodejs
 
 sudo apt-get install build-essential
 ```
--install puppetter 
+-install packages
 ```
-npm install puppeteer
-```
--install airtable
-```
-npm install airtable
+npm install 
 ```
 -Generate key in airtable.com and configuration
 
+for example:
+```
+const AIRTABLE_API_KEY = 'keys5n8BbkmqN8sn4'
+const BASE_KEY = 'appzTfyn5SZHuWzqL'
+```
 
 ## Running scraper
 
