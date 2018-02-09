@@ -20,8 +20,8 @@ npm install
 
 for example:
 ```
-const AIRTABLE_API_KEY = 'keys5n8BbkmqN8sn4'
-const BASE_KEY = 'appzTfyn5SZHuWzqL'
+const AIRTABLE_API_KEY = 'keyxxxxxxxxxxxxxx'
+const BASE_KEY = 'appzxxxxxxxxxxx'
 ```
 
 ## Running scraper
