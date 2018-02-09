@@ -9,7 +9,7 @@ const BASE_KEY = 'appzTfyn5SZHuWzqL'
 // TEST ICO DATABASE
 const BASE_KEY_TEST = 'app5PCFrzosRjP2OY'
 
-var base = new Airtable({apiKey: AIRTABLE_API_KEY}).base(BASE_KEY_TEST);
+var base = new Airtable({apiKey: AIRTABLE_API_KEY}).base(BASE_KEY);
 
 (async () => {
     try {
@@ -230,9 +230,7 @@ var base = new Airtable({apiKey: AIRTABLE_API_KEY}).base(BASE_KEY_TEST);
                 );
 
                 console.log("--------")
-                console.log(url)
-                console.log(presale_start_date)   
-                console.log(presale_end_date)                       
+                console.log(url)                                    
                 console.log("--------")
 
                 base('ICOs').create({
