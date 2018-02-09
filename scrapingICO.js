@@ -9,7 +9,7 @@ const BASE_KEY = 'appzTfyn5SZHuWzqL'
 // TEST ICO DATABASE
 const BASE_KEY_TEST = 'app5PCFrzosRjP2OY'
 
-var base = new Airtable({apiKey: AIRTABLE_API_KEY}).base(BASE_KEY);
+var base = new Airtable({apiKey: AIRTABLE_API_KEY}).base(BASE_KEY_TEST);
 
 (async () => {
     try {
@@ -29,7 +29,9 @@ var base = new Airtable({apiKey: AIRTABLE_API_KEY}).base(BASE_KEY);
             const links = await page.evaluate(
                 () => Array.from(document.body.querySelectorAll('.tabs__content.active .category-desk.justify-content-center .a_ico a#n_color[href]'), ({ href }) => href)
             );
+
             console.log(links)
+            
             for (link in links) {
 
                 await page.goto(links[link]);                
@@ -37,6 +39,28 @@ var base = new Airtable({apiKey: AIRTABLE_API_KEY}).base(BASE_KEY);
                 // Get all urls
                 url = links[link]; 
 
+                //Get all urls of ICODrops
+                const icodropsurl = await page.evaluate(
+                    () => {
+                        try {
+                            return document.querySelector('.ico-row .ico-right-col a').href
+                        } catch (e) {
+                            return 
+                        }
+                    }
+                );
+
+                //Get all urls of facebook
+                const facebookurl = await page.evaluate(
+                    () => {
+                        try {
+                            return document.querySelector('.soc_links a').href
+                        } catch (e) {
+                            return 
+                        }
+                    }
+                );
+               
                 // Get all coin names.           
                 const coinname = await page.evaluate(
                     () => document.querySelector('.white-desk.ico-desk .ico-main-info h3').innerText
@@ -156,28 +180,60 @@ var base = new Airtable({apiKey: AIRTABLE_API_KEY}).base(BASE_KEY);
                         }
                     }
                 );
-        
-                // Twitter 
-                const twitter = await page.evaluate(
+                
+                //Get all urls of github
+                const githuburl = await page.evaluate(
                     () => {
-                        if (document.querySelector('.twitter a').href)
-                            return document.querySelector('.twitter a').href
-                        else return ' '
+                        try {
+                            let social_len = document.querySelector('.soc_links').childNodes.length
+                            for (i = 1; i < social_len -2; i += 2){
+                                if (document.querySelector('.soc_links').childNodes[i].href.includes('github')) {
+                                    return document.querySelector('.soc_links').childNodes[i].href                                    
+                                }
+                            }
+                        } catch (e) {
+                            return 
+                        }
                     }
                 );
-                
-                // telegram 
-                const telegram = await page.evaluate(
+        
+               //Get all urls of twitter
+                const twitterurl = await page.evaluate(
                     () => {
-                        if (document.querySelector('.telega a').href)
-                            return document.querySelector('.telega a').href
-                        else return ' '
+                        try {
+                            let social_len = document.querySelector('.soc_links').childNodes.length
+                            for (i = 1; i < social_len - 2; i += 2){
+                                if (document.querySelector('.soc_links').childNodes[i].href.includes('twitter')) {
+                                    return document.querySelector('.soc_links').childNodes[i].href                                    
+                                }
+                            }
+                        } catch (e) {
+                            return 
+                        }
+                    }
+                );               
+                
+                //Get all urls of telegram
+                const telegramurl = await page.evaluate(
+                    () => {
+                        try {
+                            let social_len = document.querySelector('.soc_links').childNodes.length
+                            for (i = 1; i < social_len - 2; i += 2){
+                                if (document.querySelector('.soc_links').childNodes[i].href.includes('t.me')) {
+                                    return document.querySelector('.soc_links').childNodes[i].href                                    
+                                }
+                            }
+                        } catch (e) {
+                            return 
+                        }
                     }
                 );
 
                 console.log("--------")
-                console.log(url)   
-                console.log(target_raise)                         
+                console.log(url)
+                console.log(githuburl)   
+                console.log(twitterurl)   
+                console.log(telegramurl)                      
                 console.log("--------")
 
                 base('ICOs').create({
@@ -187,20 +243,21 @@ var base = new Airtable({apiKey: AIRTABLE_API_KEY}).base(BASE_KEY);
                             "url": icon
                         }
                     ],
-                    "URL": url,
+                    "URL": icodropsurl,
                     "Capital Raised": capital_raised,                    
                     "Presale Start Date": presale_start_date,
                     "Presale End Date": presale_end_date,
+                    "Facebook Link": facebookurl,
                     "Source URLS": " ",
                     "Token Price ETH": tokenpriceETH,
-                    "Twitter": twitter,
-                    "Facebook Link": " ",
+                    "Twitter": twitterurl,
+                    "Code Repository URL": githuburl,                    
                     "Symbol": symbol,
                     "Description": description,
                     "White Paper LInk": " ",
                     "Target Raise": target_raise,
                     "Market Vertical": marketvertical,
-                    "Telegram": telegram,
+                    "Telegram": telegramurl,
                     "Blockchain Technology": " ",
                     "Team Members": tm_count,
                     "Country": country
