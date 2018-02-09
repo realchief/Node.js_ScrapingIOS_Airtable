@@ -110,7 +110,7 @@ var base = new Airtable({apiKey: AIRTABLE_API_KEY}).base(BASE_KEY);
                     () => {
                         try {
                             if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[7].innerText.includes('Fundraising Goal')) {
-                                return parseFloat(document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[7].innerText.split(':')[1])
+                                return parseFloat((document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[7].innerText.split(':')[1].split(' ')[1].replace('USD', ' ')).replace(/,\s?/g, ""))
                             }
                         } catch (e) {
                             return 
@@ -177,7 +177,7 @@ var base = new Airtable({apiKey: AIRTABLE_API_KEY}).base(BASE_KEY);
 
                 console.log("--------")
                 console.log(url)   
-                console.log(coinname)             
+                console.log(target_raise)                         
                 console.log("--------")
 
                 base('ICOs').create({
