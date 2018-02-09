@@ -31,7 +31,7 @@ var base = new Airtable({apiKey: AIRTABLE_API_KEY}).base(BASE_KEY_TEST);
             );
 
             console.log(links)
-            
+
             for (link in links) {
 
                 await page.goto(links[link]);                
@@ -85,7 +85,7 @@ var base = new Airtable({apiKey: AIRTABLE_API_KEY}).base(BASE_KEY_TEST);
                 const presale_start_date = await page.evaluate(
                     () => {
                         try {
-                            return document.querySelector('.row.list .col-12.title-h4 h4').innerText.split(':')[1].split('–')[0]
+                            return document.querySelector('.row.list .col-12.title-h4 h4').innerText.split(':')[1].split('–')[0] + ',2018'
                         } catch (e) {
                             return 
                         }
@@ -96,7 +96,7 @@ var base = new Airtable({apiKey: AIRTABLE_API_KEY}).base(BASE_KEY_TEST);
                 const presale_end_date = await page.evaluate(
                     () => {
                         try {
-                            return document.querySelector('.row.list .col-12.title-h4 h4').innerText.split(':')[1].split('–')[1]
+                            return document.querySelector('.row.list .col-12.title-h4 h4').innerText.split(':')[1].split('–')[1] + ',2018'
                         } catch (e) {
                             return 
                         }
@@ -231,9 +231,8 @@ var base = new Airtable({apiKey: AIRTABLE_API_KEY}).base(BASE_KEY_TEST);
 
                 console.log("--------")
                 console.log(url)
-                console.log(githuburl)   
-                console.log(twitterurl)   
-                console.log(telegramurl)                      
+                console.log(presale_start_date)   
+                console.log(presale_end_date)                       
                 console.log("--------")
 
                 base('ICOs').create({
