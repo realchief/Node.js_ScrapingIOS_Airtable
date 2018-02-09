@@ -22,6 +22,7 @@ npm install airtable
 ```
 -Generate key in airtable.com and configuration
 
+
 ## Running scraper
 
 -To run this scraper:

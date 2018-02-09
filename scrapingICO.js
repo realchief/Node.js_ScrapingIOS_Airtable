@@ -1,7 +1,12 @@
 const puppeteer = require('puppeteer');
 var Airtable = require('airtable');
-// var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('app5PCFrzosRjP2OY');
-var base = new Airtable({apiKey: 'keys5n8BbkmqN8sn4'}).base('appzTfyn5SZHuWzqL');
+const AIRTABLE_API_KEY = 'keys5n8BbkmqN8sn4'
+
+// TEMP ICO DATABASE
+const BASE_KEY = 'appzTfyn5SZHuWzqL'
+// TEST ICO DATABASE
+const BASE_KEY_TEST = 'app5PCFrzosRjP2OY'
+var base = new Airtable({apiKey: AIRTABLE_API_KEY}).base(BASE_KEY);
 
 (async () => {
     try {
