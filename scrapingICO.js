@@ -1,15 +1,7 @@
 const puppeteer = require('puppeteer');
 var Airtable = require('airtable');
 
-// AIRTABLE API KEY
-const AIRTABLE_API_KEY = 'keys5n8BbkmqN8sn4'
-
-// TEMP ICO DATABASE
-const BASE_KEY = 'appzTfyn5SZHuWzqL'
-// TEST ICO DATABASE
-const BASE_KEY_TEST = 'app5PCFrzosRjP2OY'
-
-var base = new Airtable({apiKey: AIRTABLE_API_KEY}).base(BASE_KEY_TEST);
+var base = new Airtable({apiKey: AIRTABLE_API_KEY}).base(BASE_KEY);
 
 (async () => {
     try {
@@ -44,24 +36,18 @@ var base = new Airtable({apiKey: AIRTABLE_API_KEY}).base(BASE_KEY_TEST);
                 const icodropsurl = await page.evaluate(
                     () => {
                         try {
-                            return document.querySelector('.ico-row .ico-right-col a').href
+                            return document.querySelector('.ico-row .ico-right-col a:nth-child(2)').href
                         } catch (e) {
                             return 
                         }
                     }
                 );
 
-                //Get all urls of whitepapers
-               
+                // //Get all urls of whitepapers
                 const whitepapersurl = await page.evaluate(
                     () => {
                         try {
-                            let social_len = document.querySelector('.soc_links').childNodes.length
-                            for (i = 1; i < social_len; i ++){
-                                if (document.querySelector('#middle-desk .ico-right-col').childNodes[i].href.includes('whitepaper.pdf')) {
-                                    return document.querySelector('#middle-desk .ico-right-col').childNodes[i].href                                   
-                                }
-                            }
+                            return document.querySelectorAll('#middle-desk .ico-right-col > a')[1].href
                         } catch (e) {
                             return 
                         }
@@ -165,7 +151,7 @@ var base = new Airtable({apiKey: AIRTABLE_API_KEY}).base(BASE_KEY_TEST);
                     () => {
                         try {
                             if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[9].innerText.includes('Total Tokens')) {
-                                return parseFloat(document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[9].innerText.split(':')[1])
+                                return parseFloat(document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[9].innerText.split(':')[1].split(' ')[1].replace(/,\s?/g, ""))
                             }
                         } catch (e) {
                             return 
@@ -248,7 +234,9 @@ var base = new Airtable({apiKey: AIRTABLE_API_KEY}).base(BASE_KEY_TEST);
                 );
 
                 console.log("--------")
-                console.log(url)                                    
+                console.log(url)  
+                console.log(whitepapersurl)  
+                console.log(capital_raised)                                
                 console.log("--------")                
 
                 base('ICOs').create({
@@ -269,7 +257,7 @@ var base = new Airtable({apiKey: AIRTABLE_API_KEY}).base(BASE_KEY_TEST);
                     "Code Repository URL": githuburl,                    
                     "Symbol": symbol,
                     "Description": description,
-                    "White Paper LInk": " ",
+                    "White Paper LInk": whitepapersurl,
                     "Target Raise": target_raise,
                     "Market Vertical": marketvertical,
                     "Telegram": telegramurl,
