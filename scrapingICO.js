@@ -2,15 +2,7 @@ const puppeteer = require('puppeteer');
 var Airtable = require('airtable');
 var recorded_coinnames = []
 
-// AIRTABLE API KEY
-const AIRTABLE_API_KEY = 'keys5n8BbkmqN8sn4'
-
-// TEMP ICO DATABASE
-const BASE_KEY = 'appzTfyn5SZHuWzqL'
-// TEST ICO DATABASE
-const BASE_KEY_TEST = 'app5PCFrzosRjP2OY'
-
-var base = new Airtable({apiKey: AIRTABLE_API_KEY}).base(BASE_KEY_TEST);
+var base = new Airtable({apiKey: AIRTABLE_API_KEY}).base(BASE_KEY);
 
 base('ICOs').select({
     view: 'Grid view'
@@ -20,11 +12,8 @@ base('ICOs').select({
         let coinName = record.get('Coin Name');
         recorded_coinnames.push(coinName);
     });
-      
-    debugger;
 
     (async () => {
-        console.log(recorded_coinnames[5]);
 
         try {
             const browser = await puppeteer.launch();
@@ -252,47 +241,50 @@ base('ICOs').select({
                                 return 
                             }
                         }
-                    );
-    
+                    );   
+                    
+                    var check_coinname = recorded_coinnames.indexOf(coinname);
+
                     console.log("--------")
                     console.log(url)  
-                    console.log(whitepapersurl)  
-                    console.log(capital_raised)                                
-                    console.log("--------")                
-    
-                    base('ICOs').create({
-                        "Coin Name": coinname,
-                        "Icon": [
-                            {
-                                "url": icon
+                    console.log(check_coinname) 
+                    console.log("--------") 
+
+                    if (check_coinname == -1) {
+                        base('ICOs').create({
+                            "Coin Name": coinname,
+                            "Icon": [
+                                {
+                                    "url": icon
+                                }
+                            ],
+                            "URL": icodropsurl,
+                            "Capital Raised": capital_raised,                    
+                            "Presale Start Date": presale_start_date,
+                            "Presale End Date": presale_end_date,
+                            "Facebook Link": facebookurl,
+                            "Source URLS": " ",
+                            "Token Price ETH": tokenpriceETH,
+                            "Twitter": twitterurl,
+                            "Code Repository URL": githuburl,                    
+                            "Symbol": symbol,
+                            "Description": description,
+                            "White Paper LInk": whitepapersurl,
+                            "Target Raise": target_raise,
+                            "Market Vertical": marketvertical,
+                            "Telegram": telegramurl,
+                            "Blockchain Technology": " ",
+                            "Team Members": tm_count,
+                            "Country": country
+                            }, function(err, record) {
+                                if (err) { 
+                                    console.error(err); return; 
+                                }
+                                console.log(record.getId());
+                                console.log(record.get('Coin Name'));
                             }
-                        ],
-                        "URL": icodropsurl,
-                        "Capital Raised": capital_raised,                    
-                        "Presale Start Date": presale_start_date,
-                        "Presale End Date": presale_end_date,
-                        "Facebook Link": facebookurl,
-                        "Source URLS": " ",
-                        "Token Price ETH": tokenpriceETH,
-                        "Twitter": twitterurl,
-                        "Code Repository URL": githuburl,                    
-                        "Symbol": symbol,
-                        "Description": description,
-                        "White Paper LInk": whitepapersurl,
-                        "Target Raise": target_raise,
-                        "Market Vertical": marketvertical,
-                        "Telegram": telegramurl,
-                        "Blockchain Technology": " ",
-                        "Team Members": tm_count,
-                        "Country": country
-                        }, function(err, record) {
-                            if (err) { 
-                                console.error(err); return; 
-                            }
-                            console.log(record.getId());
-                            console.log(record.get('Coin Name'));
-                        }
-                    );                
+                        );  
+                    }
                 }
             }    
             await browser.close();
