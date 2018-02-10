@@ -1,10 +1,19 @@
 const puppeteer = require('puppeteer');
 var Airtable = require('airtable');
 
-var base = new Airtable({apiKey: AIRTABLE_API_KEY}).base(BASE_KEY);
+// AIRTABLE API KEY
+const AIRTABLE_API_KEY = 'keys5n8BbkmqN8sn4'
+
+// TEMP ICO DATABASE
+const BASE_KEY = 'appzTfyn5SZHuWzqL'
+// TEST ICO DATABASE
+const BASE_KEY_TEST = 'app5PCFrzosRjP2OY'
+
+var base = new Airtable({apiKey: AIRTABLE_API_KEY}).base(BASE_KEY_TEST);
 
 (async () => {
     try {
+
         const browser = await puppeteer.launch();
         const page = await browser.newPage();
         const domain_url = 'https://icodrops.com/'
@@ -36,6 +45,23 @@ var base = new Airtable({apiKey: AIRTABLE_API_KEY}).base(BASE_KEY);
                     () => {
                         try {
                             return document.querySelector('.ico-row .ico-right-col a').href
+                        } catch (e) {
+                            return 
+                        }
+                    }
+                );
+
+                //Get all urls of whitepapers
+               
+                const whitepapersurl = await page.evaluate(
+                    () => {
+                        try {
+                            let social_len = document.querySelector('.soc_links').childNodes.length
+                            for (i = 1; i < social_len; i ++){
+                                if (document.querySelector('#middle-desk .ico-right-col').childNodes[i].href.includes('whitepaper.pdf')) {
+                                    return document.querySelector('#middle-desk .ico-right-col').childNodes[i].href                                   
+                                }
+                            }
                         } catch (e) {
                             return 
                         }
@@ -223,7 +249,7 @@ var base = new Airtable({apiKey: AIRTABLE_API_KEY}).base(BASE_KEY);
 
                 console.log("--------")
                 console.log(url)                                    
-                console.log("--------")
+                console.log("--------")                
 
                 base('ICOs').create({
                     "Coin Name": coinname,
@@ -255,6 +281,7 @@ var base = new Airtable({apiKey: AIRTABLE_API_KEY}).base(BASE_KEY);
                             console.error(err); return; 
                         }
                         console.log(record.getId());
+                        console.log(record.get('Coin Name'));
                     });                
             }
         }    
