@@ -160,9 +160,7 @@ base('ICOs').select({
                     const capital_raised = await page.evaluate(
                         () => {
                             try {
-                                if (document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[9].innerText.includes('Total Tokens')) {
-                                    return parseFloat(document.querySelector('.white-desk.ico-desk .row.list .col-12.col-md-6').childNodes[9].innerText.split(':')[1].split(' ')[1].replace(/,\s?/g, ""))
-                                }
+                                return parseFloat(document.querySelector('#middle-desk .ico-right-col .fund-goal .blue.money-goal').innerText.replace('$', ' ').replace(/,\s?/g, ""))
                             } catch (e) {
                                 return 
                             }
@@ -247,7 +245,8 @@ base('ICOs').select({
 
                     console.log("--------")
                     console.log(url)  
-                    console.log(check_coinname) 
+                    console.log(check_coinname);
+                    console.log(capital_raised);
                     console.log("--------") 
 
                     if (check_coinname == -1) {
@@ -296,4 +295,3 @@ base('ICOs').select({
     })();
 
 });
-
