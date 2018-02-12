@@ -2,10 +2,17 @@ const puppeteer = require('puppeteer');
 var Airtable = require('airtable');
 var recorded_coinnames = []
 
-var base = new Airtable({apiKey: AIRTABLE_API_KEY}).base(BASE_KEY_TEST);
+// AIRTABLE API KEY
+const AIRTABLE_API_KEY = 'keys5n8BbkmqN8sn4'
 
-base('ICOs').select({    
-    maxRecords: 100000,
+// TEMP ICO DATABASE
+const BASE_KEY = 'appzTfyn5SZHuWzqL'
+// TEST ICO DATABASE
+const BASE_KEY_TEST = 'app5PCFrzosRjP2OY'
+
+var base = new Airtable({apiKey: AIRTABLE_API_KEY}).base(BASE_KEY);
+
+base('ICOs').select({   
     view: "Grid view"
 }).eachPage(function page(records, fetchNextPage) {
     // This function (`page`) will get called for each page of records.
