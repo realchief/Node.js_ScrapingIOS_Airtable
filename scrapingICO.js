@@ -2,7 +2,15 @@ const puppeteer = require('puppeteer');
 var Airtable = require('airtable');
 var recorded_coinnames = []
 
-var base = new Airtable({apiKey: AIRTABLE_API_KEY}).base(BASE_KEY);
+// AIRTABLE API KEY
+const AIRTABLE_API_KEY = 'keys5n8BbkmqN8sn4'
+
+// TEMP ICO DATABASE
+const BASE_KEY = 'appzTfyn5SZHuWzqL'
+// TEST ICO DATABASE
+const BASE_KEY_TEST = 'app5PCFrzosRjP2OY'
+
+var base = new Airtable({apiKey: AIRTABLE_API_KEY}).base(BASE_KEY_TEST);
 
 base('ICOs').select({   
     view: "Grid view"
